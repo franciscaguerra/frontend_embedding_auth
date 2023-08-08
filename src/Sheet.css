@@ -1,0 +1,36 @@
+.logo-container {
+    border-color: #A4B4DF;
+    border-width: 0.2px;
+    border-style: solid;
+    display: flex;
+}
+
+
+.img-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iframe-container {
+    height: 720px;
+    background-color: #f6fafe;
+    
+}
+
+.iframe {
+    margin-top: 5%;
+}
+
+.button {
+    margin-top: 20px;
+    height: 25px;
+    border-radius: 5px;
+    width: 100px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    background-color: #5252E2;
+    border: 1px;
+    margin-right: 20px;
+}
