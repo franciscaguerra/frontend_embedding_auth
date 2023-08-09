@@ -27,7 +27,7 @@ function Signup() {
     console.log("LENGH SIGN UO", authenticatedLocalStorage.length)
 
     const handleSignUp = () => {
-        axios.post(process.env.POST_URL || "localhost", {
+        axios.post("https://backend-embedding-auth.onrender.com/signup", {
             username: username,
             password: password,
         }).then((response) => {

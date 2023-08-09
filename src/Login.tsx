@@ -33,7 +33,7 @@ function Login() {
     }
 
     const handleAuth = () => {
-        axios.get(process.env.GET_URL || "localhost", {params:{
+        axios.get("https://backend-embedding-auth.onrender.com/login", {params:{
             username: username,
             password: password,}
         }).then((response) => {
