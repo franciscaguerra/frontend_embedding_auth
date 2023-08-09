@@ -1,14 +1,26 @@
 import './Login.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
+
+    const authenticatedLocalStorage = JSON.parse(localStorage.getItem("authenticated") || "[]")
+    console.log(typeof(authenticatedLocalStorage))
+    console.log("authenticatedLocalStorage", authenticatedLocalStorage)
+    console.log(authenticatedLocalStorage.length)
+
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loginStatus, setLoginStatus] = useState("");
     const [error, setError] = useState(false);
-    const [authenticated, setAuthenticated] = useState(false);
+    
+    const [authenticated, setAuthenticated] = useState(authenticatedLocalStorage);
+
+    useEffect(() => {
+        localStorage.setItem('authenticated', JSON.stringify(authenticated));
+    }, [authenticated]);
 
     const handleSubmit = ( e: any ) => {
         e.preventDefault()
@@ -21,9 +33,9 @@ function Login() {
     }
 
     const handleAuth = () => {
-        axios.post("http://127.0.0.1:4000/login/", {
+        axios.get(process.env.GET_URL || "localhost", {params:{
             username: username,
-            password: password,
+            password: password,}
         }).then((response) => {
             if (response.status !== 200){
                 console.log("Entro al response data")
@@ -32,7 +44,8 @@ function Login() {
                 setLoginStatus(response.data);
                 setAuthenticated(false);
             } else {
-                setAuthenticated(true);
+                console.log("Esta todo bien")
+                setAuthenticated(username);
             }
         })
         .catch(function (error) {
@@ -62,9 +75,8 @@ function Login() {
                     <img 
                         src="https://cdn.sanity.io/images/4n68r2aa/production/dc4d27ed32ddbfb1cb2f9500231838f5306aecd6-1500x1022.png?q=75&fit=clip&auto=format" 
                         alt="Xepelin Logo" 
-                        height="70%" 
-                        width="100%" 
-                        className='side-image'>
+                        height="100%" 
+                        width="100%">
                     </img>
                 </div>
             </div>
@@ -90,10 +102,12 @@ function Login() {
                             onChange={e => setPassword(e.target.value)}>  
                         </input>
                         <button onClick={handleAuth} className='login-button'>Ingresar</button>
+                        <Link to="/signup">No tengo cuenta</Link>
                     </form>
                     {loginStatus.length > 0 && <p className='warning'>{loginStatus}</p>}
                     {error && <p className='warning'>Te faltan campos por completar</p>}
-                    {authenticated && <Navigate to="/googlesheet" replace={true} />}
+                    {authenticated.length > 0 && <Navigate to="/googlesheet"/>}
+
                 </div>  
             </div>  
         </div>     
