@@ -60,6 +60,7 @@ function Signup() {
 
     return (    
       <div> 
+        {authenticated.length > 0  && <Navigate to="/googlesheet" />}
         <div className='logo-container'>
             <img src="https://www.entreprenerd.cl/wp-content/uploads/2022/03/Logo-Xepelin-JPG.jpg" alt="Xepelin Logo" width="140px" height="60px" className="img-logo" ></img>
         </div>
@@ -90,7 +91,6 @@ function Signup() {
                     </form>
                     {loginStatus.length > 0 && <p className='warning'>{loginStatus}</p>}
                     {error && <p className='warning'>Te faltan campos por completar</p>}
-                    {authenticated.length > 0  && <Navigate to="/googlesheet" replace={true} />}
                 </div>  
             </div>  
             <div className="column">
