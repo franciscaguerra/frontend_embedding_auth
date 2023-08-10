@@ -27,7 +27,8 @@ function Signup() {
     console.log("LENGH SIGN UO", authenticatedLocalStorage.length)
 
     const handleSignUp = () => {
-        axios.post("https://backend-embedding-auth.onrender.com/signup", {
+        if (username && password){
+            axios.post("https://backend-embedding-auth.onrender.com/signup", {
             username: username,
             password: password,
         }).then((response) => {
@@ -55,12 +56,17 @@ function Signup() {
             setLoginStatus(error.response);
             console.log(loginStatus)
           });
+
+        }
+        
     }
+
+    console.log(authenticated)
 
 
     return (    
       <div> 
-        {authenticated.length > 0  && <Navigate to="/googlesheet" />}
+        {authenticated.length > 0 && <Navigate to="/googlesheet" />}
         <div className='logo-container'>
             <img src="https://www.entreprenerd.cl/wp-content/uploads/2022/03/Logo-Xepelin-JPG.jpg" alt="Xepelin Logo" width="140px" height="60px" className="img-logo" ></img>
         </div>

@@ -33,7 +33,9 @@ function Login() {
     }
 
     const handleAuth = () => {
-        axios.get("https://backend-embedding-auth.onrender.com/login", {params:{
+        console.log(username, password)
+        if (username && password){
+            axios.get("https://backend-embedding-auth.onrender.com/login", {params:{
             username: username,
             password: password,}
         }).then((response) => {
@@ -62,6 +64,8 @@ function Login() {
             setLoginStatus(error.response);
             console.log(loginStatus)
           });
+        }
+        
     }
 
     return (
