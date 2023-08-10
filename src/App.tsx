@@ -11,6 +11,7 @@ function App() {
         <Route path="/" element={<Login></Login>}></Route>
         <Route path="/googlesheet" element={<Sheet></Sheet>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
+        <Route path="/*" element={<Login></Login>}></Route>
       </Routes>
     </HashRouter>
   );
