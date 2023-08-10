@@ -6,7 +6,7 @@ import Signup from './Signup';
 function App() {
 
   return (
-    <Router>
+    <Router basename='/'>
       <Routes>
         <Route path="/" element={<Login></Login>}></Route>
         <Route path="/googlesheet" element={<Sheet></Sheet>}></Route>
