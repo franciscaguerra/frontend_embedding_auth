@@ -38,6 +38,7 @@ function Login() {
         username: username,
         password: password,}
         }).then((response) => {
+            console.log(response)
             if (response.data.length === 0){
                 setLoginStatus("Usuario no encontrado. Intentalo de nuevo");} 
             else {setAuthenticated(username);}
