@@ -34,7 +34,7 @@ function Login() {
 
     const handleAuth = () => {
         console.log(username, password)
-        axios.get(`${process.env.URL}`, {params:{
+        axios.get(process.env.URL + "/login", {params:{
         username: username,
         password: password,}
         }).then((response) => {

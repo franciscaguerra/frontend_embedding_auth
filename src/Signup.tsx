@@ -28,7 +28,7 @@ function Signup() {
 
     const handleSignUp = () => {
         if (username && password){
-            axios.post(`${process.env.URL}/signup`, {
+            axios.post(process.env.URL + "/signup", {
             username: username,
             password: password,
         }).then((response) => {
