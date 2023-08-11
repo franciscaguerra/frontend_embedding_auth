@@ -34,7 +34,7 @@ function Login() {
 
     const handleAuth = () => {
         console.log(username, password)
-        axios.get("https://beckend-test-s5es.onrender.com/signup", {params:{
+        axios.get("https://beckend-test-s5es.onrender.com/login", {params:{
         username: username,
         password: password,}
         }).then((response) => {
