@@ -6,7 +6,7 @@ import Signup from './Signup';
 function App() {
 
   return (
-    <HashRouter basename='frontend_embedding_auth'>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Login></Login>}></Route>
         <Route path="/googlesheet" element={<Sheet></Sheet>}></Route>
