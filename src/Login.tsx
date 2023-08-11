@@ -34,38 +34,17 @@ function Login() {
 
     const handleAuth = () => {
         console.log(username, password)
-        if (username && password){
-            axios.get("https://backend-embedding-auth.onrender.com/login", {params:{
-            username: username,
-            password: password,}
+        axios.get(`${process.env.URL}/login`, {params:{
+        username: username,
+        password: password,}
         }).then((response) => {
-            if (response.status !== 200){
-                console.log("Entro al response data")
-                console.log(loginStatus)
-                console.log(response.data)
-                setLoginStatus(response.data);
-                setAuthenticated(false);
-            } else {
-                console.log("Esta todo bien")
-                setAuthenticated(username);
-            }
+            if (response.data.length === 0){
+                setLoginStatus("Usuario no encontrado. Intentalo de nuevo");} 
+            else {setAuthenticated(username);}
         })
         .catch(function (error) {
-            if (error.response) {
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log('Error', error.message);
-            }
-            console.log(error.config);
-            setLoginStatus(error.response);
-            console.log(loginStatus)
+            setLoginStatus(error.data)
           });
-        }
-        
     }
 
     return (
@@ -108,7 +87,7 @@ function Login() {
                         <button onClick={handleAuth} className='login-button'>Ingresar</button>
                         <Link to="/signup">No tengo cuenta</Link>
                     </form>
-                    {loginStatus.length > 0 && <p className='warning'>{loginStatus}</p>}
+                    {loginStatus && <p className='warning'>{loginStatus}</p>}
                     {error && <p className='warning'>Te faltan campos por completar</p>}
                     {authenticated.length > 0 && <Navigate to="/googlesheet"/>}
 

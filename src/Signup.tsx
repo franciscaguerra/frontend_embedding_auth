@@ -2,6 +2,7 @@ import './Signup.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 
 function Signup() {
     const [username, setUsername] = useState("")
@@ -27,33 +28,16 @@ function Signup() {
 
     const handleSignUp = () => {
         if (username && password){
-            axios.post("https://backend-embedding-auth.onrender.com/signup", {
+            axios.post(`${process.env.URL}/signup`, {
             username: username,
             password: password,
         }).then((response) => {
-            if (response.status !== 200){
-                console.log("Entro al response data")
-                console.log(loginStatus)
-                console.log(response.data)
-                setLoginStatus(response.data);
-                setAuthenticated("");
-            } else {
-                setAuthenticated(username);
-            }
+            console.log(response.data)
+            if (response.data === "Success"){setAuthenticated(username);} 
+            else {setLoginStatus(response.data)}
         })
         .catch(function (error) {
-            if (error.response) {
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log('Error', error.message);
-            }
-            console.log(error.config);
             setLoginStatus(error.response);
-            console.log(loginStatus)
           });
 
         }
@@ -93,8 +77,9 @@ function Signup() {
                         <button onClick={handleSignUp} className='login-button'>Registrarme</button>
                         <Link to="/">Ya tengo cuenta</Link>
                     </form>
-                    {loginStatus.length > 0 && <p className='warning'>{loginStatus}</p>}
+                    {loginStatus && <p className='warning'>{loginStatus}</p>}
                     {error && <p className='warning'>Te faltan campos por completar</p>}
+                    {authenticated.length > 0 && <Navigate to="/googlesheet"/>}
                 </div>  
             </div>  
             <div className="column">
