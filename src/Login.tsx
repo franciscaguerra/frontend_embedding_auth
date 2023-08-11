@@ -10,6 +10,7 @@ function Login() {
     console.log(typeof(authenticatedLocalStorage))
     console.log("authenticatedLocalStorage", authenticatedLocalStorage)
     console.log(authenticatedLocalStorage.length)
+    console.log("ENV", process.env.URL)
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -33,7 +34,6 @@ function Login() {
     }
 
     const handleAuth = () => {
-        console.log(process.env.URL)
         axios.get(process.env.URL + "/login", {params:{
         username: username,
         password: password,}
